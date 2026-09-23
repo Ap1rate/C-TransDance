@@ -2,18 +2,18 @@
 
 **Source visual truth**
 
-`C:\Users\aries\Downloads\之前的工作\wudao\V7_submission_reference_package\V7\figures\figure_04_prototype_interface.png`
+`Figure 4 in the manuscript submission package`
 
 **Implementation evidence**
 
-- Final desktop: `C:\Users\aries\Downloads\之前的工作\wudao\dance-scoring-platform\qa-studio-1680x943-final.png`
-- Full-view comparison: `C:\Users\aries\Downloads\之前的工作\wudao\dance-scoring-platform\qa-comparison.png`
-- Focused score-panel comparison: `C:\Users\aries\Downloads\之前的工作\wudao\dance-scoring-platform\qa-comparison-score-panel.png`
-- Tablet: `C:\Users\aries\Downloads\之前的工作\wudao\dance-scoring-platform\qa-studio-tablet-1024.png`
-- Mobile Studio: `C:\Users\aries\Downloads\之前的工作\wudao\dance-scoring-platform\qa-studio-mobile-390.png`
-- Mobile setup: `C:\Users\aries\Downloads\之前的工作\wudao\dance-scoring-platform\qa-setup-mobile-390.png`
-- Review: `C:\Users\aries\Downloads\之前的工作\wudao\dance-scoring-platform\qa-review-1440.png`
-- Progress: `C:\Users\aries\Downloads\之前的工作\wudao\dance-scoring-platform\qa-progress-viewport-1440.png`
+- Final desktop: `qa-studio-1680x943-final.png`
+- Full-view comparison: `qa-comparison.png`
+- Focused score-panel comparison: `qa-comparison-score-panel.png`
+- Tablet: `qa-studio-tablet-1024.png`
+- Mobile Studio: `qa-studio-mobile-390.png`
+- Mobile setup: `qa-setup-mobile-390.png`
+- Review: `qa-review-1440.png`
+- Progress: `qa-progress-viewport-1440.png`
 
 **Viewport and state**
 
@@ -84,3 +84,4 @@ Console result: zero errors and zero warnings.
 - [P3] Early-session captures show the timeline building before all three key moments exist. Preparation, peak/transition, and landing cards populate as the session reaches their observed phases.
 
 final result: passed
+
