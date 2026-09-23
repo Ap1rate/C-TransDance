@@ -13,4 +13,3 @@ The Figure 4 image is an interface illustration containing placeholder scores. T
 The Figure 6 plotting script at `../visualization/generate_fig6_top_contributions.py` generates a standalone bar chart from the twelve published ranked values. The complete manuscript Figure 6, including the skeleton map, is supplied as the final image here.
 
 Other manuscript figures are not part of this code-oriented release. Figure 1 contains an identifiable performer and is intentionally excluded from the public repository pending confirmation of image-publication rights.
-

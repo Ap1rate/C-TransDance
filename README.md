@@ -59,4 +59,3 @@ PNG and SVG outputs are written to `visualization/output/`.
 See [`manuscript/README.md`](manuscript/README.md) for figure provenance and the distinction between the manuscript illustration, the original scaffold, and the runnable application. The root application's model adapter is [`src/services/modelAdapter.ts`](src/services/modelAdapter.ts). Trained CNN–Transformer weights, the training and evaluation pipeline, participant-level videos, and held-out evaluation data are outside this release. Demonstration scores, screenshots, and the Figure 6 plotting script do not reproduce the paper's model-performance or statistical results.
 
 The bundled video and test fixtures have source and license details in [`test-data/SOURCES.md`](test-data/SOURCES.md). The MIT license inside `manuscript/interface-prototype/` applies to that scaffold; it does not establish a repository-wide license for the separate root application or manuscript figures.
-

@@ -343,4 +343,3 @@ function titleCase(text) {
 }
 
 init();
-
