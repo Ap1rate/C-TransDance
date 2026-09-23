@@ -1,0 +1,20 @@
+{
+  "name": "dance-scoring-terminal",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A lightweight open-source prototype UI for a real-time dance scoring terminal.",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 4173",
+    "check": "node --check app.js"
+  },
+  "keywords": [
+    "dance",
+    "pose-estimation",
+    "computer-vision",
+    "human-motion-analysis",
+    "explainable-ai"
+  ],
+  "license": "MIT"
+}
+
