@@ -1,28 +1,62 @@
-# Dance Scoring Terminal
+# C-TransDance
 
-A complete local-first studio platform for real-time dance movement assessment and explainable coaching feedback. The product implements the operational workflow specified by the companion manuscript in `../V7_submission_reference_package/V7/`.
+Source code for a browser-based dance scoring terminal prototype. It captures a 33-landmark pose from a bundled dancer video, an uploaded video, or a camera; displays six movement dimensions and evidence-linked feedback; and lets an instructor review, edit, and export a session. Video processing and session storage happen in the browser.
 
-## Product workflow
+![Studio view with pose overlay, movement profile, and feedback](qa-studio-1680x943-final.png)
 
-1. Configure dancer, verified dance style, routine, experience level, and movement source.
-2. Run the bundled real-dancer demo, connect a browser camera, or choose a local video.
-3. Extract a 33-landmark pose in the browser and maintain a rolling 96-frame window.
-4. Score posture, rhythm, amplitude, coordination, balance, and style from measured pose kinematics.
-5. Review temporal salience, joint contribution, key phases, and constrained coaching cues.
-6. Edit and approve instructor feedback, print the report, export JSON, and compare locally stored sessions.
+The screenshot shows a demonstration session. Its visible score comes from the prototype's local pose-kinematics engine. It is not a result from the manuscript's trained CNN–Transformer model.
 
-Camera frames and uploaded video stay on the device. MediaPipe WebAssembly and the Pose Landmarker Lite model are bundled under `public/mediapipe`, so inference starts locally without a model download.
+## Run locally
 
-## Run
+Install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/installation), then run:
 
 ```bash
-pnpm install
-pnpm dev --host 0.0.0.0 --port 4173
+git clone https://github.com/Ap1rate/C-TransDance.git
+cd C-TransDance
+pnpm install --frozen-lockfile
+pnpm dev --host 127.0.0.1 --port 4173
 ```
 
-Open `http://localhost:4173`. Use `http://localhost:4173/?run=1` for an auto-running guided demonstration.
+Open [http://127.0.0.1:4173/](http://127.0.0.1:4173/) to configure a session. To start the bundled nine-second dancer demonstration automatically, open [http://127.0.0.1:4173/?run=1](http://127.0.0.1:4173/?run=1). The terminal loads the bundled video and pose model, analyzes the movement, and opens Review when the video ends. Keep the development server running while using the page.
 
-## Quality checks
+The camera option requires browser permission. The bundled video and pose model are served by the local development server, so the demonstration needs no separate model download.
+
+## Interface workflow
+
+1. In **Studio**, choose Contemporary, Folk, Street, or Classical dance and select the bundled demonstration, a camera, or a local video.
+2. During capture, inspect the pose overlay, landmark coverage, overall score, six sub-scores, temporal salience, and feedback cues.
+3. In **Review**, inspect joint contributions, edit instructor feedback, add a note, print the report, or export the session as JSON.
+4. In **Progress**, reopen saved sessions and compare results. Sessions remain in the browser's local storage.
+
+![Review screen with joint contributions and editable feedback](qa-review-1440.png)
+
+![Progress screen with local session history](qa-progress-viewport-1440.png)
+
+## Repository contents and branch
+
+The release is on the [`main` branch](https://github.com/Ap1rate/C-TransDance/tree/main). It contains:
+
+| Path | Contents |
+| --- | --- |
+| `src/App.tsx` | Studio, Review, and Progress interfaces |
+| `src/domain/` | Pose types, deterministic kinematic scoring, timing, and tests |
+| `src/services/` | Browser pose inference, model-output adapter, and local persistence |
+| `src/components/` | Pose overlay component |
+| `public/mediapipe/` | Bundled Pose Landmarker Lite model and WebAssembly runtime |
+| `public/samples/` | Bundled single-dancer demonstration video |
+| `test-data/` | Video test fixtures and source/license attribution |
+| `visualization/` | Figure 6 top-joint contribution plotting script |
+| `qa-*.png`, `design-qa.md` | Interface screenshots and visual review notes |
+
+The Figure 6 script plots the joint-contribution values reported in the manuscript. With Matplotlib installed, run `python visualization/generate_fig6_top_contributions.py`. It writes PNG and SVG files to `visualization/output/`.
+
+## Relationship to the manuscript
+
+This repository releases the scoring-terminal interface prototype and the Figure 6 plotting utility. The built-in scoring engine uses deterministic pose measurements for demonstration and interface testing. `src/services/modelAdapter.ts` defines an input contract for validated model predictions. The manuscript's trained CNN–Transformer weights, training pipeline, participant videos, and held-out evaluation data are outside this release. Demo scores and README screenshots do not substantiate the paper's reported accuracy, ablation, or latency results.
+
+Source and license details for the sample video and test fixtures are in [`test-data/SOURCES.md`](test-data/SOURCES.md).
+
+## Check the code
 
 ```bash
 pnpm lint
@@ -30,35 +64,5 @@ pnpm test
 pnpm build
 ```
 
-## Inference modes
+The interface was verified from a fresh clone with Node.js 24.19.0 and pnpm 11.19.0. The `?run=1` route completed the nine-second pose analysis and opened Review.
 
-- `demo-pose`: licensed real-dancer sample analyzed live by the bundled MediaPipe runtime and local kinematics engine.
-- `pose-kinematics`: camera or video landmarks scored from alignment, motion range, support stability, coordination, velocity regularity, and style-conditioned signals.
-- `validated-model`: versioned adapter contract for a validated CNN-Transformer or equivalent model.
-
-The manuscript package does not contain trained weights, training code, or the private dataset. The platform therefore exposes its inference mode in every live session and does not present the built-in engine as the manuscript's held-out experimental model. `src/services/modelAdapter.ts` is the exact integration boundary for validated model output, including regression score, six dimensions, feedback labels, temporal salience, joint contribution, latency, confidence, and model metadata.
-
-## Architecture
-
-- `src/domain`: typed pose, assessment, feedback, session, and scoring rules.
-- `src/services`: MediaPipe runtime, validated-model adapter, local persistence, and export.
-- `src/components`: data-driven pose overlay.
-- `src/App.tsx`: Studio, Review, and Progress workflows.
-
-Session records use schema version 1 and are stored in browser local storage. The app retains the latest 40 sessions.
-
-## Browser requirements
-
-- Current Chrome, Edge, or another browser with WebAssembly and modern media APIs.
-- HTTPS or localhost for camera permissions.
-- H.264 MP4 or WebM decoding support for uploaded files.
-
-The real-video Demo and pose model remain fully functional when camera access and network access are unavailable. Test fixtures, provenance, licenses, and expected behaviors are documented in `test-data/SOURCES.md`.
-
-## Real-video verification
-
-- Built-in sample: 9-second single-dancer MP4, 100% pose coverage in the final browser regression, aligned pose overlay, automatic review report.
-- Uploaded sample: 31.8-second public-domain WebM, metadata recognized at 768×576, pose reacquisition after temporary loss, manual finish, stored review with 380 detected frames.
-- Three-person sample: 1080×1080 WebM, two concurrent poses reported, highest-visibility subject selected, 100% sampled-frame coverage during the regression window.
-- Repeated-video regression: consecutive runs retain pose output after the media clock resets to zero.
-- Automated checks: 10 tests across scoring, persistence, validated-model normalization, and video timing.
