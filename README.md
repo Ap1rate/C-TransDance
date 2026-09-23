@@ -48,7 +48,14 @@ The release is on the [`main` branch](https://github.com/Ap1rate/C-TransDance/tr
 | `visualization/` | Figure 6 top-joint contribution plotting script |
 | `qa-*.png`, `design-qa.md` | Interface screenshots and visual review notes |
 
-The Figure 6 script plots the joint-contribution values reported in the manuscript. With Matplotlib installed, run `python visualization/generate_fig6_top_contributions.py`. It writes PNG and SVG files to `visualization/output/`.
+The Figure 6 script plots the joint-contribution values reported in the manuscript. Run:
+
+```bash
+python -m pip install matplotlib
+python visualization/generate_fig6_top_contributions.py
+```
+
+It writes PNG and SVG files to `visualization/output/`.
 
 ## Relationship to the manuscript
 
